@@ -4,14 +4,21 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
-             Title="{Binding Title}"
-             x:Class="Xfw.Views.DetailPage">
+             Title="{Binding OriginalTitle}"
+             x:Class="Xfw.Views.DetailPage"
+             BackgroundColor="Black">
     <ContentPage.Content>
-        <StackLayout Margin="16"
-                     Spacing="4">
-            <Label Text="{Binding Title}" FontSize="Medium"/>
-            <Label Text="{Binding Description}" FontSize="Small"/>
-            <Image Source="{Binding PictureUrl}" />
-        </StackLayout>
+        <ScrollView Grid.ColumnSpan="2">
+            <StackLayout Margin="16" Spacing="4">
+                <Label Text="{Binding OriginalTitle}" FontSize="Medium" TextColor="#E1E1E1" HorizontalTextAlignment="Center" FontAttributes="Bold" />
+                <Image Source="{Binding FullPosterPath}" />
+                <Label Text="{Binding Overview}" FontSize="Small" TextColor="#E1E1E1" />
+                <Label TextColor="#E1E1E1"
+                                       Text="{Binding VoteAverage, StringFormat='Rating: {0}'}" />
+                <Label TextColor="#E1E1E1"
+                                       Text="{Binding ReleaseDate, StringFormat='Release date: {0}'}" />
+            </StackLayout>
+        </ScrollView>
+
     </ContentPage.Content>
 </ContentPage>

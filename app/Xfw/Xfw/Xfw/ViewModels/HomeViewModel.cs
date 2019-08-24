@@ -6,37 +6,38 @@ using System.Threading.Tasks;
 using Xfw.Models;
 using Xfw.Services;
 using System.Linq;
-     
+using Xamarin.Forms;
 
 namespace Xfw.ViewModels
 {
     public sealed class HomeViewModel : BaseViewModel
     {
-        private readonly IItemService itemService;
+        private readonly IMovieService movieService;
 
-        private ObservableCollection<Item> items = new ObservableCollection<Item>();
+        private ObservableCollection<Movie> movies = new ObservableCollection<Movie>();
 
         public HomeViewModel()
         {
-            itemService = new ItemService();
+            movieService = new MovieService();
         }
 
-        public ObservableCollection<Item> Items
+        public ObservableCollection<Movie> Movies
         {
-            get => items;
-            set { items = value; OnPropertyChanged(); }
+            get => movies;
+            set { movies = value; OnPropertyChanged(); }
         }
 
         public override async Task Initialize()
         {
             await ExecuteBusyAction(async () => {
 
-                var itemCollection = await itemService.GetAll();
-
-                Items.Clear();
-
-                foreach (var item in itemCollection)
-                    Items.Add(item);
+                (var error, var upcomingMovies) = await movieService.GetUpcoming();
+                if (error != null)
+                {
+                    await Application.Current.MainPage.DisplayAlert("Error", error, "Ok");
+                    return;
+                }
+                Movies = new ObservableCollection<Movie>(upcomingMovies);
             });
         }
     }

@@ -34,7 +34,7 @@ namespace Xfw.Views
             if (e.Item == null)
                 return;
 
-            var gangMember = e.Item as Item;
+            var gangMember = e.Item as Movie;
 
             await Navigation.PushAsync(new DetailPage(gangMember));
         }

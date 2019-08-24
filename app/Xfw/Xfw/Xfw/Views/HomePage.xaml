@@ -1,46 +1,51 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              mc:Ignorable="d"
-             Title="Home"
+             Title="Movies"
              x:Class="Xfw.Views.HomePage">
     <ContentPage.Content>
         <ListView 
             HasUnevenRows="True"
             SelectionMode="None"
             SeparatorColor="Transparent"
-            ItemsSource="{Binding Items}"
+            ItemsSource="{Binding Movies}"
             IsRefreshing="{Binding IsBusy}"
-            ItemTapped="ListView_ItemTapped"
-            CachingStrategy="RecycleElement">
+            ItemTapped="ListView_ItemTapped" 
+            CachingStrategy="RecycleElement"
+            BackgroundColor="Black">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
-                        <Grid Margin="16" 
-                              ColumnSpacing="4"                         RowSpacing="4">
+                        <Grid>
                             <Grid.RowDefinitions>
-                                <RowDefinition Height="auto" />
                                 <RowDefinition Height="auto" />
                             </Grid.RowDefinitions>
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="80" />
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
-                            <Image Grid.Column="0"
-                                   Grid.Row="0"
-                                   BackgroundColor="Red"
-                                   Grid.RowSpan="2"
-                                   Source="{Binding PictureUrl}" />
-                            <Label Grid.Column="1" 
-                                Grid.Row="0"
-                                Text="{Binding Title}"
-                                FontSize="Medium"/>
-                            <Label Grid.Column="1" 
-                                Grid.Row="1"
-                                Text="{Binding Description}"
-                                FontSize="Small"/>
+                            <StackLayout Margin="16"
+                                         Spacing="4"
+                                         VerticalOptions="End"
+                                         Grid.Row="0"
+                                         Grid.RowSpan="2">
+                                <Label TextColor="#E1E1E1"
+                                       Text="{Binding Title}"
+                                       FontSize="Large"
+                                       FontAttributes="Bold"
+                                       HorizontalTextAlignment="Center"/>
+                                <Image Grid.Row="0"
+                                   HeightRequest="240"
+                                   Source="{Binding FullBackdropPath}" />
+                                <Label TextColor="#E1E1E1"
+                                       FormattedText="{Binding Overview, StringFormat='{0}'}" />
+                                
+                                <BoxView BackgroundColor="gray" 
+                                         HeightRequest="1"
+                                         Margin="6"/>
+                            </StackLayout>
                         </Grid>
                     </ViewCell>
                 </DataTemplate>
